@@ -1,0 +1,29 @@
+As an Admin I want :
+	- to manage products (add, remove, edit)
+	- add a badge to product (optional)
+	- control what products load to my customers on home screen.
+	- to edit or change the first image (hero) of the website.
+	- to add variants to product so the client choose from.
+	- to manage the images efficiently.
+	- to see all orders.
+	- to see orders / of the day / filter by status
+	- change the status of order.
+	- to manage categories
+	- to add stock management (optional) for certain product, so if the quantity finish it will be out of stock (or manually)
+	- to calculate my earnings + net profit of the day + month with charts (this whole step in optional in the project)
+	- to be able to link the project with fb pixel.
+	- to add / change shipping prices for different cities (to home and to office)
+
+
+As a customer I want :
+	- to see beautiful interface to help me view products.
+	- to filter products by category (for eg. pants or t-shirts or ensamble) .
+	- to see product page with details.
+	- to see products cards with badges such as promo , sale
+	- to see products seperated by pages.
+	- to be able to order by filling the form (cash on delivery)
+	- to see product images.
+	- to filter product by category, price ...
+
+produit ( id, category_id, collection,
+

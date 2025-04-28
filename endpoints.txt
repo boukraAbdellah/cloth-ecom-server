@@ -1,0 +1,178 @@
+# Clothing E-commerce API Endpoints
+
+## Base URL
+http://localhost:8000/api
+
+## Media Endpoints
+- GET /media
+  Description: Retrieve all media assets
+  
+- POST /media/upload
+  Description: Upload an image
+  Headers: Content-Type: multipart/form-data
+  Body (form-data): 
+    - image: [file]
+  
+- DELETE /media/:id
+  Description: Delete a specific media asset
+  URL Params: id=[ObjectId]
+
+## Category Endpoints
+- GET /categories
+  Description: Get all categories
+  
+- POST /categories
+  Description: Create a new category
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "name": "Men's Clothing",
+    "slug": "mens-clothing",
+    "image": "60d21b4967d0d8992e610c85"  // Optional: Media ObjectId
+  }
+  ```
+  
+- PUT /categories/:id
+  Description: Update a specific category
+  URL Params: id=[ObjectId]
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "name": "Women's Clothing",
+    "slug": "womens-clothing",
+    "image": "60d21b4967d0d8992e610c85"  // Optional: Media ObjectId
+  }
+  ```
+  
+- DELETE /categories/:id
+  Description: Delete a specific category
+  URL Params: id=[ObjectId]
+
+## Product Endpoints
+- GET /products
+  Description: Get all products
+  
+- GET /products/:slug
+  Description: Get a specific product by slug
+  URL Params: slug=[string]
+  
+- POST /products
+  Description: Create a new product
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "title": "Men's T-Shirt",
+    "slug": "mens-t-shirt",
+    "description": "Comfortable cotton t-shirt",
+    "price": 29.99,
+    "category": "60d21b4967d0d8992e610c85",  // Category ObjectId
+    "badges": ["new", "sale"],
+    "images": ["60d21b4967d0d8992e610c85", "60d21b4967d0d8992e610c86"],  // Array of Media ObjectIds
+    "variants": [
+      {
+        "name": "Size",
+        "options": ["S", "M", "L", "XL"]
+      },
+      {
+        "name": "Color",
+        "options": ["Black", "White", "Blue"]
+      }
+    ],
+    "stockQuantity": 100,
+    "inStock": true,
+    "thumbnailId": "60d21b4967d0d8992e610c85"  // Media ObjectId
+  }
+  ```
+  
+- PUT /products/:id
+  Description: Update a specific product
+  URL Params: id=[ObjectId]
+  Headers: Content-Type: application/json
+  Body: Same as POST but with only the fields you want to update
+  
+- DELETE /products/:id
+  Description: Delete a specific product
+  URL Params: id=[ObjectId]
+
+## Shipping Endpoints
+- GET /shipping
+  Description: Get all shipping options
+  
+- POST /shipping
+  Description: Create a new shipping option
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "city": "New York",
+    "priceHomeDelivery": 9.99,
+    "priceOfficeDelivery": 4.99
+  }
+  ```
+  
+- PUT /shipping/:id
+  Description: Update a specific shipping option
+  URL Params: id=[ObjectId]
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "city": "New York",
+    "priceHomeDelivery": 12.99,
+    "priceOfficeDelivery": 6.99
+  }
+  ```
+  
+- DELETE /shipping/:id
+  Description: Delete a specific shipping option
+  URL Params: id=[ObjectId]
+
+## Order Endpoints
+- GET /orders
+  Description: Get all orders
+  
+- GET /orders/:id
+  Description: Get a specific order by ID
+  URL Params: id=[ObjectId]
+  
+- POST /orders
+  Description: Create a new order
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "customerName": "John Doe",
+    "customerPhone": "+1234567890",
+    "customerAddress": "123 Main St, Apt 4B",
+    "city": "New York",
+    "products": [
+      {
+        "product": "60d21b4967d0d8992e610c85",  // Product ObjectId
+        "quantity": 2,
+        "variant": {
+          "Size": "M",
+          "Color": "Black"
+        }
+      }
+    ],
+    "shippingMethod": "toHome"  // "toHome" or "toOffice"
+  }
+  ```
+  
+- PUT /orders/:id/status
+  Description: Update order status
+  URL Params: id=[ObjectId]
+  Headers: Content-Type: application/json
+  Body:
+  ```json
+  {
+    "status": "Processing"  // "Pending", "Processing", "Shipped", "Delivered", "Cancelled"
+  }
+  ```
+  
+- DELETE /orders/:id
+  Description: Delete a specific order
+  URL Params: id=[ObjectId]
