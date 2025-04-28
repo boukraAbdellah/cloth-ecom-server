@@ -22,11 +22,29 @@ async function getCategories(req, res) {
 
 async function updateCategory(req, res) {
   try {
+    const { name } = req.body;
+    const categoryId = req.params.id;
+    
+    // Check if another category with the same name exists (excluding the current one)
+    if (name) {
+      const existingCategory = await Category.findOne({ 
+        name, 
+        _id: { $ne: categoryId } 
+      });
+      
+      if (existingCategory) {
+        return res.status(400).json({ 
+          error: `Category with name "${name}" already exists` 
+        });
+      }
+    }
+    
     const category = await Category.findByIdAndUpdate(
-      req.params.id,
+      categoryId,
       req.body,
       { new: true }
     );
+    
     if (!category) return res.status(404).json({ error: 'Category not found' });
     res.json({ category });
   } catch (error) {

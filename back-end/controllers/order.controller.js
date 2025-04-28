@@ -50,11 +50,42 @@ async function createOrder(req, res) {
 
 async function getOrders(req, res) {
   try {
-    const orders = await Order.find().populate('products.product');
+    const orders = await Order.find()
+      .populate('products.product')
+      .sort({ createdAt: -1 }); // Sort by newest first
     res.json({ orders });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error fetching orders' });
+  }
+}
+
+async function getTodayOrders(req, res) {
+  try {
+    // Set up date range for today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Start of today
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1); // Start of tomorrow
+    
+    const orders = await Order.find({
+      createdAt: {
+        $gte: today,
+        $lt: tomorrow
+      }
+    })
+    .populate('products.product')
+    .sort({ createdAt: -1 }); // Sort by newest first
+    
+    res.json({ 
+      orders,
+      count: orders.length,
+      date: today.toISOString().split('T')[0]
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching today\'s orders' });
   }
 }
 
@@ -98,6 +129,7 @@ async function deleteOrder(req, res) {
 module.exports = {
   createOrder,
   getOrders,
+  getTodayOrders,
   getOrderById,
   updateOrderStatus,
   deleteOrder

@@ -1,13 +1,13 @@
 # Ignore front-end build files
 /front-end
 
-# Ignore node_modules
-/node_modules
+# Ignore node_modules in all directories
+**/node_modules/
 
-# Ignore environment files
-.env
-.env.local
-.env.*.local
+# Ignore environment files in all directories
+**/.env
+**/.env.local
+**/.env.*.local
 
 # Ignore log files
 npm-debug.log*
@@ -28,6 +28,6 @@ Thumbs.db
 *.swp
 
 # Ignore dependency lock files (if not needed)
-package-lock.json
-yarn.lock
+**/package-lock.json
+**/yarn.lock
 pnpm-lock.yaml
